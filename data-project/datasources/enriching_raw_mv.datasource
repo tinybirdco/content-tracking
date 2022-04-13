@@ -1,0 +1,13 @@
+# Data Source created from Pipe 'enriching_mat'
+
+SCHEMA >
+    `timestamp` DateTime64(3),
+    `userId` String,
+    `eventType` LowCardinality(String),
+    `contentId` String,
+    `type` LowCardinality(String),
+    `company` LowCardinality(String)
+
+ENGINE "MergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(timestamp)"
+ENGINE_SORTING_KEY "company, type, eventType, timestamp, userId, contentId"

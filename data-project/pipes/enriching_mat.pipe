@@ -1,0 +1,26 @@
+NODE enriching_raw
+SQL >
+
+    SELECT timestamp, userId, toLowCardinality(eventType) eventType, contentId, type, company FROM
+    events ev
+    JOIN (select id, type, company from content where id in (select contentId from events )) con
+    on con.id = ev.contentId
+
+TYPE materialized
+DATASOURCE enriching_raw_mv
+ENGINE "MergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(timestamp)"
+ENGINE_SORTING_KEY "company, type, eventType, timestamp, userId, contentId"
+
+
+NODE enriching_mat_1
+SQL >
+
+    SELECT toDate(timestamp) timestamp, userId, toLowCardinality(eventType) eventType, contentId, type, company, count() hits FROM
+    events ev
+    JOIN (select id, type, company from content where id in (select contentId from events )) con
+    on con.id = ev.contentId
+    GROUP BY timestamp, userId, eventType, contentId, type, company
+    ORDER BY hits DESC
+
+

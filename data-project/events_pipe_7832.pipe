@@ -1,0 +1,6 @@
+NODE events_pipe_7832_0
+SQL >
+
+    SELECT * FROM events
+
+

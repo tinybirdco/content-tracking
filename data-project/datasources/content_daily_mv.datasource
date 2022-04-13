@@ -1,0 +1,13 @@
+# Data Source created from Pipe 'content_daily'
+
+SCHEMA >
+    `timestamp` Date,
+    `eventType` LowCardinality(String),
+    `contentId` String,
+    `type` LowCardinality(String),
+    `company` LowCardinality(String),
+    `hits` UInt64
+
+ENGINE "AggregatingMergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(timestamp)"
+ENGINE_SORTING_KEY "timestamp, eventType, contentId, type, company"

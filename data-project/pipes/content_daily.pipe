@@ -1,0 +1,22 @@
+NODE content_daily_gen
+SQL >
+
+    SELECT toDate(timestamp) timestamp, toLowCardinality(eventType) eventType, contentId, type, company, count() hits FROM
+    events ev
+    JOIN (select id, type, company from content where id in (select contentId from events )) con
+    on con.id = ev.contentId
+    GROUP BY timestamp, eventType, contentId, type, company
+
+TYPE materialized
+DATASOURCE content_daily_mv
+ENGINE "AggregatingMergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(timestamp)"
+ENGINE_SORTING_KEY "timestamp, eventType, contentId, type, company"
+
+
+NODE events_pipe_9376_1
+SQL >
+
+    SELECT count() FROM events_pipe_9376_0
+
+
