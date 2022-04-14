@@ -57,3 +57,33 @@ For our demo we firstly created some thousands users with the --create_users fla
 ```bash
 python3 data-generator/send_events.py --repeat 1200000  --events 213 --sample 1009
 ```
+
+## Clean the workspace
+
+```bash
+cd data-project
+```
+
+If you want to delete all pipes and dataspurces, be sure you have them in your local folder `tb pull` and run `tb workspace clear`
+
+```bash
+$ tb workspace clear
+** Current workspace:
+----------------------------------------
+name: <your_ws_name>
+id: <your_id>
+role: admin
+plan: Build
+current: True
+----------------------------------------
+Do you want to remove all pipes and Data Sources from this workspace? [y/N]: y
+** Removing pipe content_daily
+** Removing pipe fatser_events_demo
+** Removing pipe events_demo
+** Removing pipe most_interacted_content
+** Removing pipe enriching_mat
+** Removing Data Source content
+** Removing Data Source events
+** Removing Data Source content_daily_mv
+** Removing Data Source events_enriched_mv
+```
