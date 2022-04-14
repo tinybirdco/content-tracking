@@ -46,10 +46,13 @@ tb push --fixtures --push-deps
 from the root folder, just run
 
 ```bash
+cd ..
 python3 data-generator/send_events.py --create_users
 ```
 
-or any combination of flags —see `python3 data-generator/send_events.py --help`— you want. For the video we used:
+or any combination of flags —see `python3 data-generator/send_events.py --help`— you want. 
+
+For our demo we firstly created some thousands users with the --create_users flag, and then used:
 
 ```bash
 python3 data-generator/send_events.py --repeat 1200000  --events 213 --sample 1009
