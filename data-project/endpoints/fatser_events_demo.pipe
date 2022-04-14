@@ -1,0 +1,14 @@
+TOKEN read_token READ
+
+NODE endpoint
+SQL >
+
+    %
+    SELECT * FROM events_enriched_mv
+    where  eventType = {{String(eventType, 'view', description="Type of user action: view, edit, share, publish")}}
+    and type={{String(contentType, 'marketing')}}
+    and company like concat('%',{{String(company, 'Tinybird')}},'%')
+    LIMIT {{Int32(page_size, 100)}}
+    OFFSET {{Int32(page, 0) * Int32(page_size, 100)}}
+
+

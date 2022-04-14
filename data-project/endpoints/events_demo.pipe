@@ -1,0 +1,32 @@
+TOKEN read_token READ
+
+NODE filtered_events
+SQL >
+
+    %
+    SELECT * FROM events
+    where eventType = {{String(eventType, 'view', description="Type of user action: view, edit, share, publish")}}
+    and contentId in (
+      select id from content 
+      where type={{String(contentType, 'marketing')}} 
+      and company like concat('%',{{String(company, 'Tinybird')}},'%')
+    )
+    {%if defined(user_id)%}
+    and userId = {{String(userId, '00442f35ad97478491519faeba10b4a2')}}
+    {%end%}
+
+
+
+NODE endpoint
+SQL >
+
+    %
+    SELECT timestamp, userId, eventType, contentId, type, company 
+    FROM filtered_events fev
+    join content con
+    on fev.contentId = con.id
+    ORDER BY timestamp DESC
+    LIMIT {{Int32(page_size, 500)}}
+    OFFSET {{Int32(page, 0) * Int32(page_size, 500)}}
+
+

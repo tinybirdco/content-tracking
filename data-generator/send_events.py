@@ -4,8 +4,6 @@ import json
 from datetime import datetime, timedelta
 import click
 import random
-import time
-import urllib.parse
 
 def send_event(ds: str, token: str, messages: list):
   params = {

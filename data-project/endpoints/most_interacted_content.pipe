@@ -1,0 +1,18 @@
+TOKEN read_token READ
+
+NODE endpoint
+SQL >
+
+    %
+    SELECT * FROM content_daily_mv
+    where eventType = {{String(eventType, 'view', description="Type of user action: view, edit, share, publish")}}
+    and contentId in (
+      select id from content 
+      where type={{String(contentType, 'marketing')}} 
+      and company like concat('%',{{String(company, 'Real')}},'%')
+    )
+    ORDER BY hits DESC
+    LIMIT {{Int32(page_size, 100)}}
+    OFFSET {{Int32(page, 0) * Int32(page_size, 100)}}
+
+

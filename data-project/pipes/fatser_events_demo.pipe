@@ -1,7 +1,0 @@
-NODE endpoint
-SQL >
-
-    SELECT * FROM enriching_raw_mv
-    where type='marketing' and company like '%Tinybird%'
-
-

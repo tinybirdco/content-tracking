@@ -1,6 +1,0 @@
-NODE events_pipe_6825_0
-SQL >
-
-    SELECT uniq(userId), count(), max(timestamp), min(timestamp) FROM events
-
-

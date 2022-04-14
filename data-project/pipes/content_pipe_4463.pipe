@@ -1,6 +1,0 @@
-NODE content_pipe_4463_0
-SQL >
-
-    SELECT distinct(type) FROM content
-
-
