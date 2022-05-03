@@ -6,7 +6,7 @@ SCHEMA >
     `contentId` String,
     `type` LowCardinality(String),
     `company` LowCardinality(String),
-    `hits` UInt64
+    `hits` SimpleAggregateFunction(sum, UInt64)
 
 ENGINE "AggregatingMergeTree"
 ENGINE_PARTITION_KEY "toYYYYMM(timestamp)"
